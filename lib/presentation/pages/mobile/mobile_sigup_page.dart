@@ -5,23 +5,26 @@ import 'package:flutter_svg/svg.dart';
 import 'package:the_social_network/app/util/colors.dart';
 import 'package:the_social_network/presentation/components/text_field_input.dart';
 
-class MobileLoginPage extends StatefulWidget {
-  const MobileLoginPage({super.key});
+class MobileSignupPage extends StatefulWidget {
+  const MobileSignupPage({super.key});
 
   @override
-  State<MobileLoginPage> createState() => _MobileLoginPageState();
+  State<MobileSignupPage> createState() => _MobileLoginPageState();
 }
 
-class _MobileLoginPageState extends State<MobileLoginPage> {
+class _MobileLoginPageState extends State<MobileSignupPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
+  final TextEditingController _bioController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
 
   @override
   void dispose() {
     super.dispose();
-
     _emailController.dispose();
     _passController.dispose();
+    _bioController.dispose();
+    _usernameController.dispose();
   }
 
   @override
@@ -44,6 +47,44 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
               ),
               const SizedBox(
                 height: 64,
+              ),
+              Stack(
+                children: [
+                  const CircleAvatar(
+                    radius: 64,
+                    backgroundImage: NetworkImage(
+                        'https://img.freepik.com/free-photo/handsome-man-white-background_1368-3900.jpg?t=st=1732701423~exp=1732705023~hmac=8598f8ee279b5d1acbd70411b17dd1a5cd69a46b0be6bb49fe91e1e98a3db7a2&w=1380'),
+                  ),
+                  Positioned(
+                    bottom: -10,
+                    left: 80,
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.add_a_photo,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 24,
+              ),
+              TextFieldInput(
+                  textEditingController: _usernameController,
+                  hintText: "Enter your username",
+                  textInputType: TextInputType.text,
+                  isPass: false),
+              const SizedBox(
+                height: 24,
+              ),
+              TextFieldInput(
+                  textEditingController: _bioController,
+                  hintText: "Enter your bio",
+                  textInputType: TextInputType.text,
+                  isPass: false),
+              const SizedBox(
+                height: 24,
               ),
               TextFieldInput(
                   textEditingController: _emailController,

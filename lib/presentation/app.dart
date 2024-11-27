@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:the_social_network/app/util/colors.dart';
-import 'package:the_social_network/presentation/pages/mobile/mobile_home_page.dart';
-import 'package:the_social_network/presentation/pages/mobile/mobile_login_page.dart';
+
+import 'package:the_social_network/presentation/pages/mobile/mobile_sigup_page.dart';
 import 'package:the_social_network/presentation/pages/responsive/responsive_layout_screen.dart';
 import 'package:the_social_network/presentation/pages/web/web_home_page.dart';
 
@@ -17,7 +17,7 @@ class App extends StatelessWidget {
           .copyWith(scaffoldBackgroundColor: mobileBackgroundColor),
       home: const ResponsiveLayoutScreen(
         webScreenWidget: WebHomePage(),
-        mobileScreenWidget: MobileLoginPage(),
+        mobileScreenWidget: MobileSignupPage(),
       ),
     );
   }
