@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:the_social_network/app/util/colors.dart';
 import 'package:the_social_network/presentation/components/text_field_input.dart';
+import 'package:the_social_network/presentation/controllers/signup_controller.dart';
 
 class MobileSignupPage extends StatefulWidget {
-  const MobileSignupPage({super.key});
+  final SignupController signupController;
+  const MobileSignupPage({super.key, required this.signupController});
 
   @override
   State<MobileSignupPage> createState() => _MobileLoginPageState();
@@ -50,16 +52,25 @@ class _MobileLoginPageState extends State<MobileSignupPage> {
               ),
               Stack(
                 children: [
-                  const CircleAvatar(
-                    radius: 64,
-                    backgroundImage: NetworkImage(
-                        'https://img.freepik.com/free-photo/handsome-man-white-background_1368-3900.jpg?t=st=1732701423~exp=1732705023~hmac=8598f8ee279b5d1acbd70411b17dd1a5cd69a46b0be6bb49fe91e1e98a3db7a2&w=1380'),
-                  ),
+                  (widget.signupController.image != null)
+                      ? CircleAvatar(
+                          radius: 64,
+                          backgroundImage: MemoryImage(
+                            widget.signupController.image!,
+                          ),
+                        )
+                      : const CircleAvatar(
+                          radius: 64,
+                          backgroundImage: AssetImage("assets/no_user.jpg"),
+                        ),
                   Positioned(
                     bottom: -10,
                     left: 80,
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        await widget.signupController.selectImage();
+                        setState(() {});
+                      },
                       icon: const Icon(
                         Icons.add_a_photo,
                       ),
@@ -102,19 +113,27 @@ class _MobileLoginPageState extends State<MobileSignupPage> {
               const SizedBox(
                 height: 24,
               ),
-              Container(
-                width: double.infinity,
-                alignment: Alignment.center,
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                decoration: const ShapeDecoration(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(4),
-                    ),
-                  ),
-                  color: blueColor,
+              InkWell(
+                onTap: () => widget.signupController.createUser(
+                  username: _usernameController.text,
+                  bio: _bioController.text,
+                  email: _emailController.text,
+                  password: _passController.text,
                 ),
-                child: const Text("Log in"),
+                child: Container(
+                  width: double.infinity,
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  decoration: const ShapeDecoration(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(4),
+                      ),
+                    ),
+                    color: blueColor,
+                  ),
+                  child: const Text("Sign Up"),
+                ),
               ),
               const SizedBox(
                 height: 12,
@@ -131,7 +150,6 @@ class _MobileLoginPageState extends State<MobileSignupPage> {
                     child: const Text("Don't have an account? "),
                   ),
                   GestureDetector(
-                    onTap: () {},
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       child: const Text(
